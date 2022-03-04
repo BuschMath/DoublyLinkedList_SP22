@@ -31,14 +31,14 @@ private:
 };
 
 template<class T>
-DoublyLinkedList::DoublyLinkedList()
+DoublyLinkedList<T>::DoublyLinkedList()
 {
 	head = nullptr;
 	loc = nullptr;
 }
 
 template<class T>
-DoublyLinkedList::~DoublyLinkedList()
+DoublyLinkedList<T>::~DoublyLinkedList()
 {
 	EmptyList();
 }
