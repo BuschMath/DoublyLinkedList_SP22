@@ -46,26 +46,49 @@ DoublyLinkedList<T>::~DoublyLinkedList()
 template<class T>
 inline void DoublyLinkedList<T>::Insert(T info_)
 {
-	Node* temp = new Node<T>;
-	temp->info = info_;
-	temp->prev = nullptr;
-
-	if (IsEmpty())
+	if (!IsFull())
 	{
-		temp->next = nullptr;
-	}
-	else
-	{
-		temp->next = head;
-		head->prev = temp;
-	}
+		Node* temp = new Node<T>;
 
-	head = temp;
+		temp->info = info_;
+		temp->prev = nullptr;
+
+		if (IsEmpty())
+		{
+			temp->next = nullptr;
+			loc = head;
+		}
+		else
+		{
+			temp->next = head;
+			head->prev = temp;
+		}
+
+		head = temp;
+	}
 }
 
 template<class T>
 inline void DoublyLinkedList<T>::Delete(T info_)
 {
+	if (!IsEmpty())
+	{
+		while (loc->info != nullptr)
+		{
+			if (loc->info == info_)
+			{
+				loc->prev->next = loc->next;
+				loc->next->prev = loc->prev;
+
+				delete loc;
+
+				loc = head;
+				break;
+			}
+
+			loc = loc->next;
+		}
+	}
 }
 
 template<class T>
@@ -103,12 +126,26 @@ inline void DoublyLinkedList<T>::EmptyList()
 template<class T>
 inline bool DoublyLinkedList<T>::IsEmpty()
 {
-	return false;
+	if (head == nullptr)
+		return true;
+	else
+		return false;
 }
 
 template<class T>
 inline bool DoublyLinkedList<T>::IsFull()
 {
+	try
+	{
+		Node* temp = new Node;
+	}
+	catch
+	{
+		return true;
+	}
+
+	delete temp;
+
 	return false;
 }
 
